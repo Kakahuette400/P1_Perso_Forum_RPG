@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\ScriptRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: ScriptRepository::class)]
@@ -20,6 +21,9 @@ class Script
 
     #[ORM\OneToMany(mappedBy: 'script', targetEntity: Act::class)]
     private Collection $listAct;
+
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
+    private ?string $description = null;
 
     public function __construct()
     {
@@ -69,6 +73,18 @@ class Script
                 $listAct->setScript(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getDescription(): ?string
+    {
+        return $this->description;
+    }
+
+    public function setDescription(?string $description): self
+    {
+        $this->description = $description;
 
         return $this;
     }
