@@ -12,6 +12,7 @@ function cls(){
 }
 
 function next(){
+    para.classList.add("lorem")
     cls();
     if(current === slide.length-1) current = -1;
     current++;
@@ -33,6 +34,7 @@ function next(){
 }
 
 function prev(){
+    para.classList.add("lorem")
     cls();
     if(current === 0) current = slide.length;
     current--;
@@ -64,10 +66,6 @@ document.addEventListener('mouseenter',() => {
     para.classList.add("lorem")
 })
 
-let arrow = document.querySelector('.arrow')
-arrow.addEventListener('click',() => {
-    para.classList.add("lorem")
-})
 
 
 

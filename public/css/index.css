@@ -1,13 +1,14 @@
 * {
     padding: 0;
     margin: 0;
-    font-family: sans-serif;
+    font-family: Tahoma, sans-serif;
+    color: #ffffff;
+
 
 }
 
 .container {
     position: relative;
-    background: #aad5f6;
 }
 
 .slide {
@@ -19,9 +20,15 @@
     overflow-x: hidden;
 
 }
+img {
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    filter : opacity(55%);
+}
 
 .caption {
-    background: rgba(0, 0, 0, 0.03);
+    background: rgba(0, 0, 0, 0.001);
     width: 100%;
     position: absolute;
     top: 50%;
@@ -39,7 +46,7 @@
     max-width: 600px;
     width: 90%;
     margin: 0 auto;
-    color: #ccc;
+    color: #ffffff;
     text-align: center;
     font-size: 18px;
     line-height: 1.5em;
