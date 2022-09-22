@@ -38,7 +38,7 @@ class RolePlay
     #[ORM\JoinColumn(nullable: false)]
     private ?Act $act = null;
 
-    #[ORM\ManyToMany(targetEntity: Character::class, mappedBy: 'listRP')]
+    #[ORM\ManyToMany(targetEntity: Perso::class, mappedBy: 'listRP')]
     private Collection $characters;
 
     public function __construct()
@@ -155,14 +155,14 @@ class RolePlay
     }
 
     /**
-     * @return Collection<int, Character>
+     * @return Collection<int, Perso>
      */
     public function getCharacters(): Collection
     {
         return $this->characters;
     }
 
-    public function addCharacter(Character $character): self
+    public function addCharacter(Perso $character): self
     {
         if (!$this->characters->contains($character)) {
             $this->characters->add($character);
@@ -172,7 +172,7 @@ class RolePlay
         return $this;
     }
 
-    public function removeCharacter(Character $character): self
+    public function removeCharacter(Perso $character): self
     {
         if ($this->characters->removeElement($character)) {
             $character->removeListRP($this);

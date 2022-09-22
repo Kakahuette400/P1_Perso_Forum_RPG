@@ -21,6 +21,9 @@ class Message
     #[ORM\JoinColumn(nullable: false)]
     private ?Post $post = null;
 
+    #[ORM\ManyToOne(inversedBy: 'listMessage')]
+    private ?Perso $perso = null;
+
 
 
     public function getId(): ?int
@@ -48,6 +51,18 @@ class Message
     public function setPost(?Post $post): self
     {
         $this->post = $post;
+
+        return $this;
+    }
+
+    public function getPerso(): ?Perso
+    {
+        return $this->perso;
+    }
+
+    public function setPerso(?Perso $perso): self
+    {
+        $this->perso = $perso;
 
         return $this;
     }

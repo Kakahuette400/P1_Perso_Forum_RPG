@@ -2,26 +2,26 @@
 
 namespace App\Repository;
 
-use App\Entity\Character;
+use App\Entity\Perso;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @extends ServiceEntityRepository<Character>
+ * @extends ServiceEntityRepository<Perso>
  *
- * @method Character|null find($id, $lockMode = null, $lockVersion = null)
- * @method Character|null findOneBy(array $criteria, array $orderBy = null)
- * @method Character[]    findAll()
- * @method Character[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method Perso|null find($id, $lockMode = null, $lockVersion = null)
+ * @method Perso|null findOneBy(array $criteria, array $orderBy = null)
+ * @method Perso[]    findAll()
+ * @method Perso[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
 class PersonnageRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, Character::class);
+        parent::__construct($registry, Perso::class);
     }
 
-    public function add(Character $entity, bool $flush = false): void
+    public function add(Perso $entity, bool $flush = false): void
     {
         $this->getEntityManager()->persist($entity);
 
@@ -30,7 +30,7 @@ class PersonnageRepository extends ServiceEntityRepository
         }
     }
 
-    public function remove(Character $entity, bool $flush = false): void
+    public function remove(Perso $entity, bool $flush = false): void
     {
         $this->getEntityManager()->remove($entity);
 
@@ -40,7 +40,7 @@ class PersonnageRepository extends ServiceEntityRepository
     }
 
 //    /**
-//     * @return Character[] Returns an array of Character objects
+//     * @return Perso[] Returns an array of Perso objects
 //     */
 //    public function findByExampleField($value): array
 //    {
@@ -54,7 +54,7 @@ class PersonnageRepository extends ServiceEntityRepository
 //        ;
 //    }
 
-//    public function findOneBySomeField($value): ?Character
+//    public function findOneBySomeField($value): ?Perso
 //    {
 //        return $this->createQueryBuilder('p')
 //            ->andWhere('p.exampleField = :val')
