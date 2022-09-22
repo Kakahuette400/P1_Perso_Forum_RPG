@@ -27,7 +27,7 @@ class Post
 
     #[ORM\ManyToOne(inversedBy: 'listPost')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?Character $Perso = null;
+    private ?Perso $Perso = null;
 
     public function __construct()
     {
@@ -113,12 +113,12 @@ class Post
         return $this;
     }
 
-    public function getPerso(): ?Character
+    public function getPerso(): ?Perso
     {
         return $this->Perso;
     }
 
-    public function setPerso(?Character $Perso): self
+    public function setPerso(?Perso $Perso): self
     {
         $this->Perso = $Perso;
 

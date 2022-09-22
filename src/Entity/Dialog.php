@@ -17,15 +17,15 @@ class Dialog
     #[ORM\Column(type: Types::TEXT)]
     private ?string $text = null;
 
-    #[ORM\OneToOne(inversedBy: 'dialog', cascade: ['persist', 'remove'])]
-    private ?Character $character = null;
-
     #[ORM\Column]
     private ?bool $pnj = null;
 
     #[ORM\ManyToOne(inversedBy: 'listDialog')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Post $Post = null;
+
+    #[ORM\ManyToOne(inversedBy: 'listDialog')]
+    private ?Perso $perso = null;
 
     public function getId(): ?int
     {
@@ -44,17 +44,6 @@ class Dialog
         return $this;
     }
 
-    public function getCharacter(): ?Character
-    {
-        return $this->character;
-    }
-
-    public function setCharacter(?Character $character): self
-    {
-        $this->character = $character;
-
-        return $this;
-    }
 
     public function isPnj(): ?bool
     {
@@ -76,6 +65,18 @@ class Dialog
     public function setPost(?Post $Post): self
     {
         $this->Post = $Post;
+
+        return $this;
+    }
+
+    public function getPerso(): ?Perso
+    {
+        return $this->perso;
+    }
+
+    public function setPerso(?Perso $perso): self
+    {
+        $this->perso = $perso;
 
         return $this;
     }

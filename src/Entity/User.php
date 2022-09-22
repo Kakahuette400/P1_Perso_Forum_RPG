@@ -30,8 +30,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private ?string $password = null;
 
-    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Character::class)]
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Perso::class)]
     private Collection $listCharacter;
+
+    #[ORM\Column(length: 255)]
+    private ?string $email = null;
+
+    #[ORM\Column]
+    private ?bool $isVerified = null;
 
     public function __construct()
     {
@@ -123,14 +129,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
     /**
-     * @return Collection<int, Character>
+     * @return Collection<int, Perso>
      */
     public function getListCharacter(): Collection
     {
         return $this->listCharacter;
     }
 
-    public function addListCharacter(Character $listCharacter): self
+    public function addListCharacter(Perso $listCharacter): self
     {
         if (!$this->listCharacter->contains($listCharacter)) {
             $this->listCharacter->add($listCharacter);
@@ -140,7 +146,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function removeListCharacter(Character $listCharacter): self
+    public function removeListCharacter(Perso $listCharacter): self
     {
         if ($this->listCharacter->removeElement($listCharacter)) {
             // set the owning side to null (unless already changed)
@@ -148,6 +154,30 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
                 $listCharacter->setUser(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getEmail(): ?string
+    {
+        return $this->email;
+    }
+
+    public function setEmail(string $email): self
+    {
+        $this->email = $email;
+
+        return $this;
+    }
+
+    public function isIsVerified(): ?bool
+    {
+        return $this->isVerified;
+    }
+
+    public function setIsVerified(bool $isVerified): self
+    {
+        $this->isVerified = $isVerified;
 
         return $this;
     }

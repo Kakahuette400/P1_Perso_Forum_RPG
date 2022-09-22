@@ -9,26 +9,26 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: PersonnageRepository::class)]
-class Character
+class Perso
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255,nullable: true)]
     private ?string $name = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255,nullable: true)]
     private ?string $firstName = null;
 
-    #[ORM\Column]
+    #[ORM\Column(nullable: true)]
     private ?int $age = null;
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $job = null;
 
-    #[ORM\Column(length: 255, nullable: true)]
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $body = null;
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
@@ -40,11 +40,9 @@ class Character
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $avatar = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255,nullable: true)]
     private ?string $color = null;
 
-    #[ORM\OneToOne(mappedBy: 'character', cascade: ['persist', 'remove'])]
-    private ?Dialog $dialog = null;
 
     #[ORM\OneToMany(mappedBy: 'Perso', targetEntity: Post::class)]
     private Collection $listPost;
@@ -53,13 +51,21 @@ class Character
     private Collection $listRP;
 
     #[ORM\ManyToOne(inversedBy: 'listCharacter')]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\JoinColumn(nullable: true)]
     private ?User $user = null;
+
+    #[ORM\OneToMany(mappedBy: 'perso', targetEntity: Dialog::class)]
+    private Collection $listDialog;
+
+    #[ORM\OneToMany(mappedBy: 'perso', targetEntity: Message::class)]
+    private Collection $listMessage;
 
     public function __construct()
     {
         $this->listPost = new ArrayCollection();
         $this->listRP = new ArrayCollection();
+        $this->listDialog = new ArrayCollection();
+        $this->listMessage = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -175,28 +181,6 @@ class Character
         return $this;
     }
 
-    public function getDialog(): ?Dialog
-    {
-        return $this->dialog;
-    }
-
-    public function setDialog(?Dialog $dialog): self
-    {
-        // unset the owning side of the relation if necessary
-        if ($dialog === null && $this->dialog !== null) {
-            $this->dialog->setCharacter(null);
-        }
-
-        // set the owning side of the relation if necessary
-        if ($dialog !== null && $dialog->getCharacter() !== $this) {
-            $dialog->setCharacter($this);
-        }
-
-        $this->dialog = $dialog;
-
-        return $this;
-    }
-
     /**
      * @return Collection<int, Post>
      */
@@ -259,6 +243,66 @@ class Character
     public function setUser(?User $user): self
     {
         $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Dialog>
+     */
+    public function getListDialog(): Collection
+    {
+        return $this->listDialog;
+    }
+
+    public function addListDialog(Dialog $listDialog): self
+    {
+        if (!$this->listDialog->contains($listDialog)) {
+            $this->listDialog->add($listDialog);
+            $listDialog->setPerso($this);
+        }
+
+        return $this;
+    }
+
+    public function removeListDialog(Dialog $listDialog): self
+    {
+        if ($this->listDialog->removeElement($listDialog)) {
+            // set the owning side to null (unless already changed)
+            if ($listDialog->getPerso() === $this) {
+                $listDialog->setPerso(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Message>
+     */
+    public function getListMessage(): Collection
+    {
+        return $this->listMessage;
+    }
+
+    public function addListMessage(Message $listMessage): self
+    {
+        if (!$this->listMessage->contains($listMessage)) {
+            $this->listMessage->add($listMessage);
+            $listMessage->setPerso($this);
+        }
+
+        return $this;
+    }
+
+    public function removeListMessage(Message $listMessage): self
+    {
+        if ($this->listMessage->removeElement($listMessage)) {
+            // set the owning side to null (unless already changed)
+            if ($listMessage->getPerso() === $this) {
+                $listMessage->setPerso(null);
+            }
+        }
 
         return $this;
     }
