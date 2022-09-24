@@ -61,7 +61,8 @@ class SiteFixtures extends Fixture
 
                 for ($u = 0; $u < 1; $u++) {
                     $script = new Script();
-                    $script->setTitle($faker->text(15));
+                    $script->setTitle($faker->text(15))
+                    ->setDescription($faker->text(255));
 
                     $manager->persist($script);
 

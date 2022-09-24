@@ -25,6 +25,9 @@ class Script
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $description = null;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $background = null;
+
     public function __construct()
     {
         $this->listAct = new ArrayCollection();
@@ -85,6 +88,18 @@ class Script
     public function setDescription(?string $description): self
     {
         $this->description = $description;
+
+        return $this;
+    }
+
+    public function getBackground(): ?string
+    {
+        return $this->background;
+    }
+
+    public function setBackground(?string $background): self
+    {
+        $this->background = $background;
 
         return $this;
     }
