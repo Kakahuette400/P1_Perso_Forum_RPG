@@ -6,28 +6,38 @@
     <link href="/css/index.css" rel="stylesheet"/>
 {% endblock %}
 {% block body %}
-<container class="containerIndex">
-    <div class="arrow l" onclick="prev()">
-        <img src="img/l.png" alt="l">
-    </div>
-    {% for script in scripts %}
-        <div class="slide">
-            <img src="/img/1.jpg" alt="1">
-            <div class="caption">
-
-                <h3>{{ script.title }}</h3>
-                <div class="para">
-                    <p>{{ script.description }}</p>
-                </div>
-            </div>
+    <container class="containerIndex">
+        <div class="arrow l" onclick="prev()">
+            <img src="img/l.png" alt="l">
         </div>
+        {% for script in scripts %}
+            <div class="slide" onmouseenter="displayDescription()">
+                <div class="imgbox">
+                    {% if is_mobile() or is_tablet() %}
+                    <img class="fit" src="{{ asset('/img/mobile/' ~ script.background) }}" alt="1">
+                    {% else %}
+                    <img class="fit" src="{{ asset('/img/desktop/' ~ script.background) }}" alt="1">
+                    {% endif %}
+                </div>
+                <div class="caption">
+                    <h3>{{ script.title }}</h3>
+                    <div class="para text-center">
+                        <p>{{ script.description }}
+                        <br/><br/>
+                        <button class="btn btn-light text-black" href="">En savoir plus</button>
+                        </p>
+                    </div>
 
-    {% endfor %}
-    <div class="arrow r" onclick="next()">
-        <img src="img/r.png" alt="r">
-    </div>
-    {% block indexscript %}
-        <script src="/js/scriptIndex.js"></script>
-    {% endblock %}
-</container>
+                </div>
+
+            </div>
+
+        {% endfor %}
+        <div class="arrow r" onclick="next()">
+            <img src="img/r.png" alt="r">
+        </div>
+        {% block indexscript %}
+            <script src="/js/scriptIndex.js"></script>
+        {% endblock %}
+    </container>
 {% endblock %}
