@@ -25,6 +25,7 @@ class SiteFixtures extends Fixture
     public function load(ObjectManager $manager): void
     {
         $faker = Factory::create('fr_FR');
+        $int = random_int(1,10);
 
 
         for ($i = 0; $i < 5; $i++) {
@@ -62,20 +63,23 @@ class SiteFixtures extends Fixture
                 for ($u = 0; $u < 1; $u++) {
                     $script = new Script();
                     $script->setTitle($faker->text(15))
-                    ->setDescription($faker->text(255));
+                    ->setDescription($faker->text(255))
+                    ->setBackground($int.".jpg");
 
                     $manager->persist($script);
 
 
-                    for ($o = 0; $o < 2; $o++) {
+                    for ($o = 0; $o < 10; $o++) {
                         $act = new Act();
                         $act->setTitle($faker->text(10))
+                            ->setDescription($faker->text(255))
+                            ->setImage($faker->imageUrl(50,50))
                             ->setScript($script);
 
                         $manager->persist($act);
 
 
-                        for ($p = 0; $p < 3; $p++) {
+                        for ($p = 0; $p < 1; $p++) {
                             $rp = new RolePlay();
                             $rp->setTitle($faker->text(25))
                                 ->setAct($act)
@@ -94,7 +98,7 @@ class SiteFixtures extends Fixture
                                 $manager->persist($post);
 
 
-                                for ($z = 0; $z < 5; $z++) {
+                                for ($z = 0; $z < 2; $z++) {
                                     $message = new Message();
                                     $message->setText($faker->realText(255))
                                         ->setPerso($perso)
@@ -103,7 +107,7 @@ class SiteFixtures extends Fixture
 
                                     $manager->persist($message);
 
-                                    for ($l = 0; $l < 5; $l++) {
+                                    for ($l = 0; $l < 2; $l++) {
                                         $dialog = new Dialog;
                                         $dialog->setPnj($faker->boolean)
                                             ->setText($faker->realText(255))

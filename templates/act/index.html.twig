@@ -1,0 +1,89 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} {{ script.title }} {% endblock %}
+
+{% block stylesheets %}
+    <link href="/css/script.css" rel="stylesheet"/>
+    <link href="/css/styles.css" rel="stylesheet"/>
+{% endblock %}
+
+{% block body %}
+    <div class="container-fluid">
+        <div class="row">
+            <a href="{{ path("app_index") }}">
+                <div class="return">
+                    <h2 class="title text-light">{{ script.title }} </h2>
+                    <img class="left" src="{{ asset('/img/l.png') }}" alt="left">
+                </div>
+            </a>
+            <div class="col-lg-3 banner">
+                <img class="img" src="{{ asset('/img/prev/' ~ script.background) }}" alt="preview-background">
+            </div>
+            <div style="overflow-y:scroll;" class="col-lg-9 col-md-12 acts pb-5 ">
+                <h3 class="pb-3 p-5 border-bottom mb-5 text-left"> {{ script.description }}</h3>
+                {% for act in acts %}
+                    {% if loop.index is odd %}
+                        <div class="row align-items-center how-it-works d-flex">
+                            <div class="col-2 text-center bottom d-inline-flex justify-content-center align-items-center">
+                                <img class="rounded-circle w-50 opacity-100" src="{{ act.image }}" alt="1">
+                            </div>
+                            <div class="col-6">
+                                <h5>{{ act.title }}</h5>
+                                <p>{{ act.description }}</p>
+                            </div>
+                        </div>
+                    {% elseif loop.index is even %}
+                        <!--path between 1-2-->
+                        <div class="row timeline">
+                            <div class="col-2">
+                                <div class="corner top-right"></div>
+                            </div>
+                            <div class="col-8">
+                                <hr/>
+                            </div>
+                            <div class="col-2">
+                                <div class="corner left-bottom"></div>
+                            </div>
+                        </div>
+                        <!--second section-->
+                        <div class="row align-items-center justify-content-end how-it-works d-flex">
+                            <div class="col-6 text-right">
+                                <h5>{{ act.title }}</h5>
+                                <p>{{ act.description }}</p>
+                            </div>
+                            <div class="col-2 text-center full d-inline-flex justify-content-center align-items-center">
+                                <img class="rounded-circle opacity-100  w-50" src="{{ act.image }}" alt="1">
+                            </div>
+                        </div>
+                        <!--path between 2-3-->
+                        <div class="row timeline">
+                            <div class="col-2">
+                                <div class="corner right-bottom"></div>
+                            </div>
+                            <div class="col-8">
+                                <hr/>
+                            </div>
+                            <div class="col-2">
+                                <div class="corner top-left"></div>
+                            </div>
+                        </div>
+                    {% elseif loop.index is even %}
+                        <!--third section-->
+                        <div class="row align-items-center how-it-works d-flex">
+                            <div class="col-2 text-center top d-inline-flex justify-content-center align-items-center">
+                                <img class="rounded-circle opacity-100 w-50" src="{{ act.image }}" alt="1">
+                            </div>
+                            <div class="col-6">
+                                <h5>{{ act.title }}</h5>
+                                <p>{{ act.description }}</p>
+                            </div>
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    {% block indexscript %}
+        <script src="/js/scriptPage.js"></script>
+    {% endblock %}
+{% endblock %}
